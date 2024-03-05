@@ -2,16 +2,6 @@ body {
 	background: #f18e85;
 	display: relative;
 }
-
-@keyframes wave {
-	0% {
-		transform: translateY(100%);
-	}
-	100% {
-		transform: translateY(0);
-	}
-}
-
 svg {
 	transform: translateY(100%); /* start position below viewport */
 	position: absolute;

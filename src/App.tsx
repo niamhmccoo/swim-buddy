@@ -2,28 +2,43 @@ import './App.css';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 
+const bob = (
+	selector: string,
+	initialY: string,
+	swipeInDuration: number,
+	finalY: string,
+	bobDuration: number,
+	bobDelay: number
+) => {
+	gsap.to(selector, {
+		duration: swipeInDuration,
+		y: initialY,
+		ease: 'elastic.out(0.5, 0.75)',
+		onComplete: () => {
+			gsap.to(selector, {
+				duration: bobDuration,
+				y: finalY,
+				ease: 'sine.inOut',
+				yoyo: true,
+				repeat: -1,
+				delay: bobDelay,
+			});
+		},
+	});
+};
+
 const App = () => {
 	useGSAP(() => {
-		gsap.to('.bottom-wave-svg', { duration: 4, y: '-48%', ease: 'elastic.out(0.5, 0.75)' });
-		gsap.to('.mid-wave-svg', {
-			duration: 4,
-			y: '-42%',
-			ease: 'elastic.out(0.5, 0.75)',
-			delay: 0.25,
-		});
-		gsap.to('.top-wave-svg', {
-			duration: 5,
-			y: '3%',
-			ease: 'elastic.out(0.5, 0.5)',
-			delay: 0.5,
-		});
+		bob('.bottom-wave-svg', '-50%', 4, '-49.75%', 5, 0);
+		bob('.mid-wave-svg', '-45%', 4.5, '-45.6%', 6, 0.95);
+		bob('.top-wave-svg', '-2%', 5, '-1.25%', 5, 1.6);
 	}, {});
 
 	return (
 		<div className='wrap'>
 			<svg
 				fill='none'
-				width='100%'
+				width='150%'
 				height='180%'
 				viewBox='0 0 400 892'
 				className='top-wave-svg'
@@ -45,7 +60,6 @@ const App = () => {
 			>
 				<path
 					fill='#461d61'
-					// className='wave mid-wave-path'
 					d='M-36.3726 60.7338C133.789 77.5408 211 95.7339 419.245 5.0795C627.491 -85.5749 405 1067.23 405 1067.23H-36.3726C-36.3726 1067.23 -206.534 43.9267 -36.3726 60.7338Z'
 				/>
 			</svg>
@@ -56,11 +70,7 @@ const App = () => {
 				className='bottom-wave-svg'
 				xmlns='http://www.w3.org/2000/svg'
 			>
-				<path
-					fill='#8d75eb'
-					// className='wave bottom-wave-path'
-					d='M-1 100C21.5985 10 308.993 100 393 100V1033H-1V100Z'
-				/>
+				<path fill='#8d75eb' d='M-1 100C21.5985 10 308.993 100 393 100V1033H-1V100Z' />
 			</svg>
 		</div>
 	);
