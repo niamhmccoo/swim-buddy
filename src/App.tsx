@@ -1,6 +1,8 @@
+import React from 'react';
 import gsap from 'gsap';
 import { useState } from 'react';
 import { useGSAP } from '@gsap/react';
+import { useNavigate } from 'react-router-dom';
 import Waves from './components/Waves';
 import DropdownMenu from './components/DropdownMenu';
 import { Wrap, UiWrap, FlexWrap, Button } from './App.styles';
@@ -42,7 +44,14 @@ const bob = (
 };
 
 const App = () => {
+	const [location, setLocation] = useState<string>('');
 	const [moreOpen, setMoreOpen] = useState<boolean>(false);
+	const navigate = useNavigate();
+
+	const handleLocationSelect = (location: string) => {
+		setLocation(location);
+		navigate(`/${location}`);
+	};
 
 	useGSAP(() => {
 		bob('.bottom-wave', '-50%', 4, 0.3, '-49.75%', 5, 0);
@@ -56,10 +65,10 @@ const App = () => {
 			<UiWrap>
 				<h1>Where to?</h1>
 				<FlexWrap>
-					<Button>40 Foot</Button>
-					<Button>Vico Baths</Button>
-					<Button>Seapoint</Button>
-					<Button>Killiney</Button>
+					<Button onClick={() => handleLocationSelect('40Foot')}>40 Foot</Button>
+					<Button onClick={() => handleLocationSelect('VicoBaths')}>Vico Baths</Button>
+					<Button onClick={() => handleLocationSelect('Seapoint')}>Seapoint</Button>
+					<Button onClick={() => handleLocationSelect('Killiney')}>Killiney</Button>
 					<Button kind='secondary' dropdownOpen={moreOpen} onClick={() => setMoreOpen(!moreOpen)}>
 						<span>More</span>
 						<svg
@@ -82,7 +91,11 @@ const App = () => {
 							)}
 						</svg>
 					</Button>
-					<DropdownMenu locations={locations} dropdownOpen={moreOpen} />
+					<DropdownMenu
+						locations={locations}
+						dropdownOpen={moreOpen}
+						onSelect={handleLocationSelect}
+					/>
 				</FlexWrap>
 			</UiWrap>
 		</Wrap>

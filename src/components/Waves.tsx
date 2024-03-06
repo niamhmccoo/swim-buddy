@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 import { TopWave, MidWave, BottomWave } from '../App.styles';
 
 const Waves: FC = () => (
