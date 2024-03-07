@@ -8,9 +8,9 @@ type LocationDataDisplayProps = {
 	location: Location;
 };
 
-const formatTides = (tides) => {
+const formatTides = (tides: string[]) => {
 	const sortedTides = tides
-		.sort((a, b) => {
+		.sort((a: string, b: string) => {
 			const [aHrs, aMins] = a.split('.').map(Number);
 			const [bHrs, bMins] = b.split('.').map(Number);
 			return aHrs === bHrs ? aMins - bMins : aHrs - bHrs;
