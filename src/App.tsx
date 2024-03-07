@@ -4,17 +4,9 @@ import { useState } from 'react';
 import { useGSAP } from '@gsap/react';
 import { useNavigate } from 'react-router-dom';
 import Waves from './components/Waves';
+import { LOCATIONS } from './locations';
 import DropdownMenu from './components/DropdownMenu';
 import { Wrap, UiWrap, FlexWrap, Button } from './App.styles';
-
-const locations: { name: string }[] = [
-	{ name: 'Dollymount' },
-	{ name: 'Half Moon' },
-	{ name: 'Malahide' },
-	{ name: 'Portmarnock' },
-	{ name: 'Rush' },
-	{ name: 'Skerries' },
-];
 
 const bob = (
 	selector: string,
@@ -65,8 +57,8 @@ const App = () => {
 			<UiWrap>
 				<h1>Where to?</h1>
 				<FlexWrap>
-					<Button onClick={() => handleLocationSelect('40Foot')}>40 Foot</Button>
-					<Button onClick={() => handleLocationSelect('VicoBaths')}>Vico Baths</Button>
+					<Button onClick={() => handleLocationSelect('Forty Foot')}>Forty Foot</Button>
+					<Button onClick={() => handleLocationSelect('Vico Baths')}>Vico Baths</Button>
 					<Button onClick={() => handleLocationSelect('Seapoint')}>Seapoint</Button>
 					<Button onClick={() => handleLocationSelect('Killiney')}>Killiney</Button>
 					<Button kind='secondary' dropdownOpen={moreOpen} onClick={() => setMoreOpen(!moreOpen)}>
@@ -92,7 +84,7 @@ const App = () => {
 						</svg>
 					</Button>
 					<DropdownMenu
-						locations={locations}
+						locations={LOCATIONS}
 						dropdownOpen={moreOpen}
 						onSelect={handleLocationSelect}
 					/>

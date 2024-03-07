@@ -1,12 +1,30 @@
 import React, { FC } from 'react';
+import type { Location } from '../locations';
+import { TideTime } from '../App.styles';
+import useTidalData from '../hooks/useTidalData';
 import { LocationWrap, InnerLocationWrap, SubHeader } from '../App.styles';
 
-const Location: FC = () => {
-	const location = '40 Foot';
+type LocationDataDisplayProps = {
+	location: Location;
+};
+
+const formatTides = (tides) => {
+	const sortedTides = tides
+		.sort((a, b) => {
+			const [aHrs, aMins] = a.split('.').map(Number);
+			const [bHrs, bMins] = b.split('.').map(Number);
+			return aHrs === bHrs ? aMins - bMins : aHrs - bHrs;
+		})
+		.map((time) => time.replace('.', ':'));
+	return sortedTides.map((t) => <TideTime>{t}</TideTime>);
+};
+
+const LocationDataDisplay: FC<LocationDataDisplayProps> = ({ location }) => {
+	const { highTides, lowTides } = useTidalData(location.latitude, location.longitude);
 
 	return (
 		<LocationWrap>
-			<h1>{location}</h1>
+			<h1>{location.label}</h1>
 			<SubHeader>TODAY</SubHeader>
 			<InnerLocationWrap>
 				<svg
@@ -30,8 +48,8 @@ const Location: FC = () => {
 						stroke-width='2'
 					/>
 				</svg>
-				<h2>10:00</h2>
-				<SubHeader>HIGH TIDE</SubHeader>
+				{formatTides(highTides)}
+				<SubHeader>HIGH TIDE{highTides.length > 1 ? `S` : ``}</SubHeader>
 			</InnerLocationWrap>
 			<InnerLocationWrap>
 				<svg
@@ -51,11 +69,11 @@ const Location: FC = () => {
 						stroke-width='2'
 					/>
 				</svg>
-				<h2>16:00</h2>
-				<p>LOW TIDE</p>
+				{formatTides(lowTides)}
+				<p>LOW TIDE{lowTides.length > 1 ? `S` : ``}</p>
 			</InnerLocationWrap>
 		</LocationWrap>
 	);
 };
 
-export default Location;
+export default LocationDataDisplay;

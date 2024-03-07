@@ -120,3 +120,7 @@ export const SubHeader = styled.p`
 	font-size: 1.25rem;
 	font-weight: 100;
 `;
+
+export const TideTime = styled.h1`
+	margin-bottom: 0;
+`;
