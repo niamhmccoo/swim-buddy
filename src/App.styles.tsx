@@ -1,6 +1,8 @@
 import styled, { keyframes, css } from 'styled-components';
 
 export const Wrap = styled.div`
+	background: #f18e85;
+
 	.wave {
 		transform: translateY(100%); /* start position below viewport */
 		position: absolute;
@@ -98,4 +100,27 @@ export const DropdownItem = styled.li`
 			background: none;
 		}
 	}
+`;
+
+export const LocationWrap = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-flow: column nowrap;
+	background: #130e55;
+	padding: 5rem 0;
+	height: 100vh;
+`;
+
+export const InnerLocationWrap = styled(LocationWrap)`
+	height: unset;
+`;
+
+export const SubHeader = styled.p`
+	font-size: 1.25rem;
+	font-weight: 100;
+`;
+
+export const TideTime = styled.h1`
+	margin-bottom: 0;
 `;

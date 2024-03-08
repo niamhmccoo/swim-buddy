@@ -1,13 +1,16 @@
+import React from 'react';
 import gsap from 'gsap';
+import type { Location } from '../locations';
 import { useRef, useEffect, FC } from 'react';
 import { Dropdown, DropdownItem, Button } from '../App.styles';
 
 type Props = {
 	dropdownOpen: boolean;
-	locations: { name: string }[];
+	locations: Location[];
+	onSelect: (location: string) => void;
 };
 
-const DropdownMenu: FC<Props> = ({ dropdownOpen, locations }: Props) => {
+const DropdownMenu: FC<Props> = ({ dropdownOpen, locations, onSelect }: Props) => {
 	const dropdownRef = useRef<HTMLUListElement>(null);
 
 	useEffect(() => {
@@ -30,7 +33,9 @@ const DropdownMenu: FC<Props> = ({ dropdownOpen, locations }: Props) => {
 		<Dropdown ref={dropdownRef} dropdownOpen={dropdownOpen}>
 			{locations.map((l, i) => (
 				<DropdownItem key={i}>
-					<Button kind='secondary'>{l.name}</Button>
+					<Button kind='secondary' onClick={() => onSelect(l.label)}>
+						{l.label}
+					</Button>
 				</DropdownItem>
 			))}
 		</Dropdown>
