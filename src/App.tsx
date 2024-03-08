@@ -36,7 +36,7 @@ const bob = (
 };
 
 const App = () => {
-	const [location, setLocation] = useState<string>('');
+	const [_location, setLocation] = useState<string>('');
 	const [moreOpen, setMoreOpen] = useState<boolean>(false);
 	const navigate = useNavigate();
 
